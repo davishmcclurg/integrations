@@ -1,0 +1,66 @@
+---
+description: Pipeline for processing Google Drive files
+processors:
+  - set:
+      field: event.ingested
+      value: "{{ _ingest.timestamp }}"
+  - set:
+      field: ecs.version
+      value: "1.12.0"
+  - append:
+      field: event.category
+      value: file
+  - json:
+      field: message
+      target_field: json
+  - set:
+      field: _id
+      copy_from: json.id
+  - set:
+      field: file.created
+      copy_from: json.createdTime
+  - set:
+      field: file.ctime
+      copy_from: json.modifiedTime
+  - set:
+      field: file.extension
+      copy_from: json.fileExtension
+      ignore_empty_value: true
+  - set:
+      field: file.mime_type
+      copy_from: json.mimeType
+  - set:
+      field: file.mtime
+      copy_from: json.modifiedTime
+  - set:
+      field: file.name
+      copy_from: json.name
+  - set:
+      field: file.size
+      copy_from: json.size
+      ignore_empty_value: true
+  - set:
+      field: file.type
+      copy_from: json.kind
+  - script:
+      lang: painless
+      source: >
+        ctx.file.owner = new ArrayList();
+        ctx.user = new ArrayList();
+        for (owner in ctx.json.owners) {
+          def splitmail = owner.emailAddress.splitOnToken('@');
+          ctx.file.owner.add(splitmail[0]);
+          def user = new HashMap();
+          user.domain = splitmail[1];
+          user.email = owner.emailAddress;
+          user.full_name = owner.displayName;
+          user.id = owner.emailAddress;
+          user.name = splitmail[0];
+          ctx.user.add(user);
+        }
+  - remove:
+      field: json
+on_failure:
+  - set:
+      field: error.message
+      value: "{{ _ingest.on_failure_message }}"

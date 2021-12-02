@@ -1,0 +1,55 @@
+format_version: 1.0.0
+name: google_drive
+title: "Google Drive"
+version: 0.0.1
+license: basic
+description: "This is a new package."
+type: integration
+categories:
+  - custom
+release: experimental
+conditions:
+  kibana.version: "^7.15.1"
+screenshots:
+  - src: /img/sample-screenshot.png
+    title: Sample screenshot
+    size: 600x600
+    type: image/png
+icons:
+  - src: /img/sample-logo.svg
+    title: Sample logo
+    size: 32x32
+    type: image/svg+xml
+policy_templates:
+  - name: google_drive
+    title: Google Drive
+    description: Collect files from Google Drive APIs
+    inputs:
+      - type: httpjson
+        vars:
+          - name: credentials_json
+            type: text
+            title: Credentials Json
+            multi: false
+            required: true
+            show_user: true
+          - name: interval
+            type: text
+            title: Interval
+            description: Duration between requests to the API.
+            multi: false
+            required: true
+            show_user: true
+            default: 2h
+          - name: api_host
+            type: text
+            title: API Host.
+            description: The Google Workspace API Host. The path will be automatically set.
+            multi: false
+            required: true
+            show_user: false
+            default: https://www.googleapis.com
+        title: "Collect drive files (input: httpjson)"
+        description: "Collecting drive files (input: httpjson)"
+owner:
+  github: elastic/integrations

@@ -1,0 +1,7 @@
+title: "Google Drive files"
+type: logs
+streams:
+  - input: httpjson
+    template_path: httpjson.yml.hbs
+    title: Google Drive files (httpjson)
+    description: Collect Google Drive files using httpjson input

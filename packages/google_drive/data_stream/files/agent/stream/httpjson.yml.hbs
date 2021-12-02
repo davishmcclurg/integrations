@@ -1,0 +1,25 @@
+config_version: 2
+interval: {{interval}}
+auth.oauth2.provider: google
+auth.oauth2.google.credentials_json: {{credentials_json}}
+auth.oauth2.scopes:
+  - email
+  - profile
+  - https://www.googleapis.com/auth/drive.readonly
+  - https://www.googleapis.com/auth/drive.metadata.readonly
+  - https://www.googleapis.com/auth/admin.directory.group.readonly
+  - https://www.googleapis.com/auth/admin.directory.user.readonly
+request:
+  url: {{api_host}}/drive/v3/files
+  method: get
+  transforms:
+    - set:
+        target: url.params.fields
+        value: '*'
+response.pagination:
+  - set:
+      target: url.params.pageToken
+      value: '[[.last_response.body.nextPageToken]]'
+      fail_on_template_error: true
+response.split:
+  target: body.files
