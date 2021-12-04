@@ -27,9 +27,15 @@ policy_templates:
     inputs:
       - type: httpjson
         vars:
+          - name: content_source_id
+            type: text
+            title: Source Identifier
+            multi: false
+            required: true
+            show_user: true
           - name: credentials_json
             type: text
-            title: Credentials Json
+            title: Credentials JSON
             multi: false
             required: true
             show_user: true

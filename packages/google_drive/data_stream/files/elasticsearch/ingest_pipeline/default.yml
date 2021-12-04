@@ -47,6 +47,7 @@ processors:
       source: >
         ctx.file.owner = new ArrayList();
         ctx.user = new ArrayList();
+        def author = new ArrayList();
         for (owner in ctx.json.owners) {
           def splitmail = owner.emailAddress.splitOnToken('@');
           ctx.file.owner.add(splitmail[0]);
@@ -57,7 +58,79 @@ processors:
           user.id = owner.emailAddress;
           user.name = splitmail[0];
           ctx.user.add(user);
+          author.add(owner.displayName);
         }
+        def firstOwner = ctx.json.owners[0];
+        ctx.created_by = firstOwner.displayName;
+        ctx.created_by_email = firstOwner.emailAddress;
+        ctx.author = String.join(", ", author);
+  - set:
+      field: id
+      copy_from: _id
+  - set:
+      field: source
+      value: google_drive
+  - set:
+      field: content_source_id
+      copy_from: json.content_source_id
+  - set:
+      field: created_at
+      copy_from: json.createdTime
+  - set:
+      field: updated_at
+      copy_from: json.modifiedTime
+  - set:
+      field: last_updated
+      copy_from: json.modifiedTime
+  - set:
+      field: viewed_by_me_at
+      copy_from: json.viewedByMeTime
+      ignore_empty_value: true
+  - set:
+      field: updated_by_me_at
+      copy_from: json.updatedByMeTime
+      ignore_empty_value: true
+  - set:
+      field: updated_by
+      copy_from: json.lastModifyingUser.displayName
+  - set:
+      field: updated_by_email
+      copy_from: json.lastModifyingUser.emailAddress
+  - set:
+      field: updated_by_photo_url
+      copy_from: json.lastModifyingUser.photoLink
+  - set:
+      field: shared_by
+      copy_from: json.sharingUser.displayName
+  - set:
+      field: shared_by_email
+      copy_from: json.sharingUser.emailAddress
+  - set:
+      field: shared_by_photo_url
+      copy_from: json.sharingUser.photoLink
+  - set:
+      field: size
+      copy_from: file.size
+      ignore_empty_value: true
+  - set:
+      field: title
+      copy_from: file.name
+  - set:
+      field: url
+      copy_from: json.webViewLink
+  - set:
+      field: mime_type
+      copy_from: file.mime_type
+  - set:
+      field: extension
+      copy_from: file.extension
+      ignore_empty_value: true
+  - set:
+      field: starred
+      copy_from: json.starred
+  - set:
+      field: type
+      copy_from: file.type
   - remove:
       field: json
 on_failure:

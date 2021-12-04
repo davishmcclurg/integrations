@@ -23,3 +23,7 @@ response.pagination:
       fail_on_template_error: true
 response.split:
   target: body.files
+  transforms:
+  - set:
+      target: body.content_source_id
+      value: {{content_source_id}}

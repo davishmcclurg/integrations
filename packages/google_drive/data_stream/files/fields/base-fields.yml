@@ -10,3 +10,95 @@
 - name: '@timestamp'
   type: date
   description: Event timestamp.
+- name: id
+  type: keyword
+- name: source
+  type: text
+  multi_fields: &enterprise_search_multi_fields
+    - name: stem
+      type: text
+    - name: prefix
+      type: text
+    - name: delimiter
+      type: text
+    - name: joined
+      type: text
+    - name: enum
+      type: keyword
+      ignore_above: 2048
+    # not working for some reason, maybe ignored_malformed isn't supported
+    # - name: float
+    #   type: double
+    #   ignore_malformed: true
+    # - name: date
+    #   type: date
+    #   ignore_malformed: true
+    # - name: location
+    #   type: geo_point
+    #   ignore_malformed: true
+- name: content_source_id
+  type: text
+  multi_fields: *enterprise_search_multi_fields
+- name: last_updated
+  type: text
+  multi_fields: *enterprise_search_multi_fields
+- name: url
+  type: text
+  multi_fields: *enterprise_search_multi_fields
+- name: title
+  type: text
+  multi_fields: *enterprise_search_multi_fields
+- name: body
+  type: text
+  multi_fields: *enterprise_search_multi_fields
+- name: type
+  type: text
+  multi_fields: *enterprise_search_multi_fields
+- name: created_at
+  type: text
+  multi_fields: *enterprise_search_multi_fields
+- name: updated_at
+  type: text
+  multi_fields: *enterprise_search_multi_fields
+- name: created_by
+  type: text
+  multi_fields: *enterprise_search_multi_fields
+- name: updated_by
+  type: text
+  multi_fields: *enterprise_search_multi_fields
+- name: viewed_by_me_at
+  type: text
+  multi_fields: *enterprise_search_multi_fields
+- name: updated_by_me_at
+  type: text
+  multi_fields: *enterprise_search_multi_fields
+- name: updated_by_email
+  type: text
+  multi_fields: *enterprise_search_multi_fields
+- name: updated_by_photo_url
+  type: text
+  multi_fields: *enterprise_search_multi_fields
+- name: shared_by
+  type: text
+  multi_fields: *enterprise_search_multi_fields
+- name: shared_by_email
+  type: text
+  multi_fields: *enterprise_search_multi_fields
+- name: shared_by_photo_url
+  type: text
+  multi_fields: *enterprise_search_multi_fields
+- name: size
+  type: text
+  multi_fields: *enterprise_search_multi_fields
+- name: author
+  type: text
+  multi_fields: *enterprise_search_multi_fields
+- name: mime_type
+  type: text
+  multi_fields: *enterprise_search_multi_fields
+- name: extension
+  type: text
+  multi_fields: *enterprise_search_multi_fields
+- name: starred
+  type: text
+  multi_fields: *enterprise_search_multi_fields
