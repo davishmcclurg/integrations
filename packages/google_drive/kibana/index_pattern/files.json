@@ -1,0 +1,22 @@
+{
+  "id": "logs-google_drive.files-default",
+  "type": "index-pattern",
+  "namespaces": [
+    "default"
+  ],
+  "updated_at": "2021-12-08T22:39:35.068Z",
+  "version": "WzY5NiwxXQ==",
+  "attributes": {
+    "fieldAttrs": "{}",
+    "title": "logs-google_drive.files-default",
+    "timeFieldName": "",
+    "fields": "[]",
+    "typeMeta": "{}",
+    "runtimeFieldMap": "{}"
+  },
+  "references": [],
+  "migrationVersion": {
+    "index-pattern": "7.11.0"
+  },
+  "coreMigrationVersion": "7.15.1"
+}

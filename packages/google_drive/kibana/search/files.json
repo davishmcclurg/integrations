@@ -1,0 +1,36 @@
+{
+  "id": "logs-google_drive.files-default",
+  "type": "search",
+  "namespaces": [
+    "default"
+  ],
+  "updated_at": "2021-12-09T01:40:32.446Z",
+  "version": "Wzc0NiwxXQ==",
+  "attributes": {
+    "title": "[Elastic Agent] Google Drive Files",
+    "description": "",
+    "hits": 0,
+    "columns": [
+      "title",
+      "url",
+      "created_by",
+      "created_at"
+    ],
+    "sort": [],
+    "version": 1,
+    "kibanaSavedObjectMeta": {
+      "searchSourceJSON": "{\"query\":{\"language\":\"kuery\",\"query\":\"\"},\"filter\":[],\"indexRefName\":\"kibanaSavedObjectMeta.searchSourceJSON.index\"}"
+    }
+  },
+  "references": [
+    {
+      "name": "kibanaSavedObjectMeta.searchSourceJSON.index",
+      "type": "index-pattern",
+      "id": "logs-google_drive.files-default"
+    }
+  ],
+  "migrationVersion": {
+    "search": "7.9.3"
+  },
+  "coreMigrationVersion": "7.15.1"
+}
